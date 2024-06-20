@@ -29,16 +29,39 @@ def create_new_account ():
 
 
 
+def login_to_account ():
+    email = input ("Enter your email: ")
+    if email_exists(email):
+        password = input ("Enter your password: ")
+
+    accounts_file = open('accounts.txt', 'r')
+    for line in accounts_file:
+        parts = line.strip().split(",")
+        email_check = parts[0]
+        password_check = parts[1]
+
+    if email_check == email and password_check == password:
+        print ("Logged in successfully!")
+        accounts_file.close()
+        return True
+    
+    accounts_file.close()
+
+    print ("Email or password incorrect. Please try again.")
+    return False
+        
+
+
 def main():
     while True:
         print ("1. Create an account")
-        print ("2. Exit") #Supposed to be for logging in just a placeholder for now
+        print ("2. Login to account") 
         choice = input ("Enter your choice: ")
 
         if choice == '1':
             create_new_account()
         elif choice == '2':
-            print ("Exiting...")
+            login_to_account()
             break
         else:
             print("Invalid choice, please try again.")
